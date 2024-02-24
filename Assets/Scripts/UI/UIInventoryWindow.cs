@@ -17,13 +17,14 @@ namespace FightVillage.UI
         public void InitializeInventory(int size){
             for (int i = 0; i < size; i++){
                 UIInventoryItem currentObject = Instantiate(_inventoryObjectPrefab, _contextObject);
+                currentObject.Reset();
                 currentObject.name = $"Item 0{i}";
-                _listOfObjects.Add(currentObject);
                 currentObject.OnItemClicked += HandleItemClicked;
-                currentObject.OnRightMouseBtnClicked += HandleItemRightClicked;
+                currentObject.OnRightMouseBtnClicked += HandleUse;
                 currentObject.OnItemBeginDrag += HandleItemBeginDrag;
                 currentObject.OnItemEndDrag += HandleItemEndDrag;
-                currentObject.OnItemDropedOn += HandleItemDropedOn;
+                currentObject.OnItemDropedOn += HandleItemSwap;
+                _listOfObjects.Add(currentObject);
             }
         }
 
@@ -38,16 +39,16 @@ namespace FightVillage.UI
             Debug.Log($"Use Btn On {name}");
             
         }
-        private void HandleItemSwap(UIInventoryItem item)
+        private void HandleItemBeginDrag(UIInventoryItem item)
         {
             //Swap Items
-            Debug.Log($"Swap Items On {name}");
+            Debug.Log($"Drag Begin  On {name}");
         }
         private void HandleItemEndDrag(UIInventoryItem item)
         {
             Debug.Log($"Drag End On {name}");
         }
-        private void HandleItemDropedOn(UIInventoryItem item)
+        private void HandleItemSwap(UIInventoryItem item)
         {
             Debug.Log($"Item Droped On{name}");
         }
