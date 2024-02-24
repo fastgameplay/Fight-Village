@@ -10,14 +10,14 @@ namespace FightVillage.UI
         [SerializeField] GameObject _popUpWindow;
         [SerializeField] TextMeshProUGUI _title;
         [SerializeField] Image _itemImage; 
-        
-        public void SetPopUp(Sprite itemImage, string itemName)
+
+        public void Show(Sprite itemImage, string itemName)
         {
             _popUpWindow.SetActive(true);
             _itemImage.sprite = itemImage;
             _title.text = itemName;
         }
-        public void Close()
+        public void Reset()
         {
             _popUpWindow.SetActive(false);
         }

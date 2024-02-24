@@ -6,7 +6,7 @@ namespace FightVillage.UI
     using TMPro;
     using UnityEngine.EventSystems;
 
-    public class UIInventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler
+    public class UIInventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
     {
         private bool backGroundImageState
         {
@@ -52,11 +52,12 @@ namespace FightVillage.UI
         }
         public void OnDrag(PointerEventData eventData) {}
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
             //TODO: Implement Mobile Input
             if(eventData.button == PointerEventData.InputButton.Right)
             {
+                
                 OnRightMouseBtnClicked?.Invoke(this);
             }
             else if(eventData.button == PointerEventData.InputButton.Left)
