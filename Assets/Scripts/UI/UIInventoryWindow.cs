@@ -7,6 +7,7 @@ namespace FightVillage.UI
     {
         [SerializeField] private UIInventoryItem _inventoryObjectPrefab;
         [SerializeField] private UIInventoryPopUp _inventoryPopUp;
+        [SerializeField] private MouseFollower _mouseFollower;
         [SerializeField] private Transform _contextObject;
 
         [Space(20)]
@@ -19,10 +20,14 @@ namespace FightVillage.UI
         [SerializeField] int _inventorySize;
         private List<UIInventoryItem> _listOfObjects = new List<UIInventoryItem>();
 
+        private int _currentlyDraggedItemIndex = -1;
 
-
+        
         private void Start() {
+            _mouseFollower.Toggle(false);
+
             InitializeInventory(_inventorySize);
+            
             _listOfObjects[1].SetData(tempSprite1,tempQuantity1);
             _listOfObjects[5].SetData(tempSprite2,tempQuantity2);
         }
@@ -53,16 +58,35 @@ namespace FightVillage.UI
         }
         private void HandleItemBeginDrag(UIInventoryItem item)
         {
+            int index = _listOfObjects.IndexOf(item);
+            if( index == -1) return;
+            _currentlyDraggedItemIndex = index;
+
+            _mouseFollower.SetData(index == 1 ? tempSprite1 : tempSprite2, index == 1 ? tempQuantity1 : tempQuantity2);
+            _mouseFollower.Toggle(true);
             //Swap Items
             Debug.Log($"Drag Begin  On {name}");
         }
         private void HandleItemEndDrag(UIInventoryItem item)
         {
+            _mouseFollower.Toggle(false);
             Debug.Log($"Drag End On {name}");
         }
         private void HandleItemSwap(UIInventoryItem item)
         {
-            Debug.Log($"Item Droped On{name}");
+            int index = _listOfObjects.IndexOf(item);
+            if(index == -1) 
+            {
+                _mouseFollower.Toggle(false);
+                _currentlyDraggedItemIndex = -1;
+                return;
+            }
+            _listOfObjects[_currentlyDraggedItemIndex]
+                .SetData(index == 1 ? tempSprite1 : tempSprite2, tempQuantity1);
+            _listOfObjects[index]
+                .SetData(_currentlyDraggedItemIndex == 1 ? tempSprite1 : tempSprite2, tempQuantity1);
+            _mouseFollower.Toggle(false);
+            _currentlyDraggedItemIndex = -1;      
         }
     }
 }

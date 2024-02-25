@@ -6,7 +6,7 @@ namespace FightVillage.UI
     using TMPro;
     using UnityEngine.EventSystems;
 
-    public class UIInventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+    public class UIInventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler, IDropHandler
     {
         private bool backGroundImageState
         {
@@ -16,7 +16,7 @@ namespace FightVillage.UI
         private bool counterTextState
         {
             get => _counterText.gameObject.activeSelf;
-            set => _backGroundImage.gameObject.SetActive(value);
+            set => _counterText.gameObject.SetActive(value);
         }
         [SerializeField] private Image _backGroundImage;         
         [SerializeField] private Image _itemImage;       
@@ -65,7 +65,8 @@ namespace FightVillage.UI
                 OnItemClicked?.Invoke(this);
             }
         }
-        public void OnDrop() {
+        public void OnDrop(PointerEventData eventData)
+        {
             OnItemDropedOn?.Invoke(this);
         }
     }   
