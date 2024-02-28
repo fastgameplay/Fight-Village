@@ -1,4 +1,4 @@
-namespace FightVillage.UI
+namespace FightVillage.Inventory.UI
 {
     using UnityEngine;
     public class MouseFollower : MonoBehaviour

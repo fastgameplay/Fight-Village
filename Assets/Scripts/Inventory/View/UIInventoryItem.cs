@@ -1,4 +1,4 @@
-namespace FightVillage.UI
+namespace FightVillage.Inventory.UI
 {
     using UnityEngine.UI;
     using UnityEngine;
@@ -54,10 +54,9 @@ namespace FightVillage.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            //TODO: Implement Mobile Input
+            if(_empty) return;
             if(eventData.button == PointerEventData.InputButton.Right)
             {
-                
                 OnRightMouseBtnClicked?.Invoke(this);
             }
             else if(eventData.button == PointerEventData.InputButton.Left)
